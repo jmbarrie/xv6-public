@@ -89,14 +89,16 @@ runcmd(struct cmd *cmd)
     runcmd(rcmd->cmd);
     break;
 
+  // TODO: Added wait(0)
   case LIST:
     lcmd = (struct listcmd*)cmd;
     if(fork1() == 0)
       runcmd(lcmd->left);
-    wait();
+    wait(0);
     runcmd(lcmd->right);
     break;
 
+  // TODO: Added wait(0)
   case PIPE:
     pcmd = (struct pipecmd*)cmd;
     if(pipe(p) < 0)
@@ -117,8 +119,8 @@ runcmd(struct cmd *cmd)
     }
     close(p[0]);
     close(p[1]);
-    wait();
-    wait();
+    wait(0);
+    wait(0);
     break;
 
   case BACK:
@@ -155,6 +157,7 @@ main(void)
     }
   }
 
+  // TODO: Added wait(0)
   // Read and run input commands.
   while(getcmd(buf, sizeof(buf)) >= 0){
     if(buf[0] == 'c' && buf[1] == 'd' && buf[2] == ' '){
@@ -166,7 +169,7 @@ main(void)
     }
     if(fork1() == 0)
       runcmd(parsecmd(buf));
-    wait();
+    wait(0);
   }
   exit(0);
 }
