@@ -33,7 +33,6 @@ forktest(void)
     exit(0);
   }
 
-  // TODO: Added wait(0)
   for(; n > 0; n--){
     if(wait(0) < 0){
       printf(1, "wait stopped early\n");
@@ -41,7 +40,6 @@ forktest(void)
     }
   }
 
-  // TODO: Added wait(0)
   if(wait(0) != -1){
     printf(1, "wait got too many\n");
     exit(0);

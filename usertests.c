@@ -13,7 +13,6 @@ char name[3];
 char *echoargv[] = { "echo", "ALL", "TESTS", "PASSED", 0 };
 int stdout = 1;
 
-// TODO: Updated wait()
 // does chdir() call iput(p->cwd) in a transaction?
 void
 iputtest(void)
