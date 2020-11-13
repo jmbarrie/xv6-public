@@ -8,6 +8,18 @@
 #include "proc.h"
 
 int
+sys_set_priority(void)
+{
+    int priority;
+
+    if(argint(0, &priority) < 0)
+        return -1;
+
+    set_priority(priority);
+    return 0;
+}
+
+int
 sys_fork(void)
 {
   return fork();

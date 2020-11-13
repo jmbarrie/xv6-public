@@ -14,11 +14,25 @@ struct {
 
 static struct proc *initproc;
 
+int base_priority = 10;
 int nextpid = 1;
 extern void forkret(void);
 extern void trapret(void);
 
 static void wakeup1(void *chan);
+
+int
+set_priority(int priority)
+{
+    // Check if priority is a negative or greater than 31
+    if (priority < 0 || priority > 31)
+        return;
+
+    struct proc* p = myproc();
+
+    p->priority = priority;
+    yield();
+}
 
 void
 pinit(void)
@@ -88,6 +102,7 @@ allocproc(void)
 found:
   p->state = EMBRYO;
   p->pid = nextpid++;
+  p->priority = base_priority;
 
   release(&ptable.lock);
 
