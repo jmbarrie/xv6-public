@@ -21,7 +21,7 @@ extern void trapret(void);
 
 static void wakeup1(void *chan);
 
-int
+void
 set_priority(int priority)
 {
     // Check if priority is a negative or greater than 31
@@ -355,7 +355,7 @@ scheduler(void)
 
       temp_proc1 = p;
 
-      for (temp_proc2 = ptable.proc; temp_proc2 < &ptable.proc[NPROC]; temp_proc2)
+      for (temp_proc2 = ptable.proc; temp_proc2 < &ptable.proc[NPROC]; ++temp_proc2)
       {
           if (temp_proc2->state != RUNNABLE)
               continue;
